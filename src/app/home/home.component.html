@@ -1,0 +1,70 @@
+<!--Se inserta la imagen de fondo -->
+<body style=" font-family: 'Open Sans', sans-serif;
+height: 100vh;
+background-image: url('https://www.clubalpha.com.mx/images/alphaCH/fotos/alpha-cholula-galeria-ac.jpg') ;
+background-position: no-repeat center center fixed;
+background-size: cover;">
+	
+
+
+	<div  class="wrapper">
+		
+
+	
+	
+
+<form  class="login"  >
+	<a href="/home">Regresar</a>
+	<!--Si el folio no se ha comprobado se despliega esta seccion -->
+	<h1 *ngIf=" impri==false && facturado==false" class="title">Generar CFDI 4.0</h1>
+	<input type="text"  name="folio" placeholder="Folio de venta "[(ngModel)]="folio " >
+	<button *ngIf=" impri==false && facturado==false" type="button"  class="btn btn-primary mb-3" (click)="comprobarFactura()" >
+		<span *ngIf="load==true">Comprobar Folio </span>
+		<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" *ngIf="load==false"></span>
+  <span  *ngIf="load==false">Comprobando..</span>
+	</button>
+	<!--Si el folio ya se facturo se despliega esta seccion -->
+	<button *ngIf=" impri==true" type="button"  class="btn btn-primary mb-3" (click)="imprimir()" >
+		<span *ngIf="load==true">Descargar</span>
+		<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" *ngIf="load==false"></span>
+  <span  *ngIf="load==false">Generando..</span> </button>
+	
+	<!--Si el folio no se ha facturado despliega esta seccion -->
+	<h2 *ngIf=" facturado==true" class="title"> Datos del receptor</h2>
+	<h2 *ngIf=" impri==true" class="title"> Ya se ha generado una factura con ese folio, puedes volver a dercargarla y recibirla por correo electronico </h2>
+	<input *ngIf=" impri==true" type="text" name="correo" placeholder="correo electronico"[(ngModel)]="correo" >
+	
+	
+	<input  *ngIf=" facturado==true"type="text"  name="Domicilio" placeholder="Domicilio Fiscal Receptor"[(ngModel)]="domicilio" >
+	
+	<input  *ngIf=" facturado==true" type="text" name="Nombre" placeholder="Nombre"[(ngModel)]="nombre" >
+	<span  *ngIf="facturado==true">Uso del CFDI</span>
+	<select *ngIf=" facturado==true"  class="form-select"[(ngModel)]="seleccionado"  aria-label="Default select example" > <option [value]="item.id" *ngFor="let item of cfd" >{{item.id}}-{{item.nombre}}</option></select>
+	
+	<input *ngIf=" facturado==true" type="text" name="Regimen" placeholder="Regimen Fiscal Receptor" [(ngModel)]="regimen" >
+	<span  *ngIf="facturado==true">Forma de pago</span>
+	<select *ngIf=" facturado==true"  class="form-select"[(ngModel)]="pago"  aria-label="Default select example" > <option [value]="pago.id" *ngFor="let pago of pagos" >{{pago.nombre}}</option></select>
+	
+    <input *ngIf=" facturado==true" type="text" name="RFC" placeholder="RFC"[(ngModel)]="rfc" >
+	
+	<input *ngIf=" facturado==true" type="text" name="correo" placeholder="correo electronico"[(ngModel)]="correo" >
+	
+	
+	
+	
+	<button *ngIf=" facturado==true"  type="button" class="btn btn-primary text-nowrap"(click)="OrdenVenta()" >
+		<span *ngIf="load==true">Generar</span>
+		<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" *ngIf="load==false"></span>
+  <span  *ngIf="load==false">Generando..</span>
+  
+
+	</button>
+	
+	
+</form>
+
+
+</div>
+
+</body>
+
